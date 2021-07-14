@@ -28,17 +28,20 @@ app.set('view engine', 'pug')
 app.use(express.static(path.join(__dirname + '/public')))
 
 
-//begin router initializer for REST API
+//***begin router initializer for REST API
 var route_directory = "routes";
+//get list of filenames in /routes
 var filenames = fs.readdirSync(route_directory);
 var router;
+//iterate through filenames
 filenames.forEach(filename=>{
     //routername is filename without .js extension
     var router=filename.substring(0,filename.length-3);
     var routerConst="var "+router+"Router = require('./routes/"+router+"');"
-    console.log(routerConst);
+    //require the routername
     eval(routerConst);
     if(router!=='index'){
+        //add the route as middleware
         eval("app.use('/"+router+"',"+router+"Router);");
     }
     else{
@@ -50,12 +53,13 @@ filenames.forEach(filename=>{
         //eval("app.use('/',"+router+"Router);");
     }
 })
-//end router initializer
+//***end router initializer
 
 
 io.on('connection',socket=>{
+    //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
-        console.log('From client: ', message);
+        io.emit('chat',message);
     })
 })
 
