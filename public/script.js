@@ -5,6 +5,7 @@ const socket = io();
 const chat = document.querySelector('.chat-form');
 const input = document.querySelector('.chat-input');
 const chatWindow = document.querySelector('.chat-window');
+const username = document.querySelector('.username-input');
 
 const renderMessage = message => {
     const div = document.createElement('div')
@@ -18,12 +19,13 @@ chat.addEventListener('submit',event =>{
     event.preventDefault();
     /*send an event called 'chat' to server-side socket
     carrying the submitted chat message*/
-    socket.emit('chat',input.value);
+    socket.emit('chat',username.value+": "+input.value);
     //reset chat input field to blank once the message has been sent
     input.value = '';
 });
 
 //add event listener for receiving 'chat' message from server
 socket.on('chat',message=>{
+    //modify UI to add the received message
     renderMessage(message);
 })
