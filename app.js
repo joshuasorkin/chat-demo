@@ -5,9 +5,9 @@ const app = express();
 const server = require('http').createServer(app);
 const port = process.env.PORT || 3000
 //const RouterLoader = require('./routerLoader');
-
-
 //const routerLoader = new RouterLoader(app);
+
+app.set('view engine', 'pug')
 
 var route_directory = "routes";
 var filenames = fs.readdirSync(route_directory);
