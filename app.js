@@ -23,7 +23,6 @@ back to the module*/
 
 //initialize view engine
 app.set('view engine', 'pug')
-const path = require('path');
 
 //set index page to static HTML file, using index.html
 app.use(express.static(path.join(__dirname + '/public')))
