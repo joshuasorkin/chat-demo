@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000
 
 app.set('view engine', 'pug')
 
+//begin router initializer
 var route_directory = "routes";
 var filenames = fs.readdirSync(route_directory);
 var router;
@@ -26,6 +27,7 @@ filenames.forEach(filename=>{
         eval("app.use('/',"+router+"Router);");
     }
 })
+//end router initializer
 
 //routerLoader.loadRoutes();
 
