@@ -54,7 +54,9 @@ filenames.forEach(filename=>{
 
 
 io.on('connection',socket=>{
-    console.log('Client connected')
+    socket.on('chat',message =>{
+        console.log('From client: ', message);
+    })
 })
 
 
