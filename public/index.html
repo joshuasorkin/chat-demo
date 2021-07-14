@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Vent Chat</title>
+        <title>Chatabolic</title>
         <style>
             #container {
               width: 700px;
@@ -32,7 +32,7 @@
     <body>
         <div id="container">
             <h1>
-                Vent Chat
+                Chatabolic
             </h1>
             <div id="chatRegion">
                 <div class="chat-window"></div>
@@ -57,5 +57,26 @@
 
         <script src="socket.io/socket.io.js"></script>
         <script src="script.js"></script>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+            apiKey: "AIzaSyBDCZ7lehJGVY4tAWyPzAXkEiekx9QJkUY",
+            authDomain: "chatabolic.firebaseapp.com",
+            projectId: "chatabolic",
+            storageBucket: "chatabolic.appspot.com",
+            messagingSenderId: "307425308969",
+            appId: "1:307425308969:web:c46450f53bc49e8e8d8738"
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+        </script>
+
     </body>
 </html>
