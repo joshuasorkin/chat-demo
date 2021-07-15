@@ -33,9 +33,7 @@ chat.addEventListener('submit',event =>{
     else{
         /*send an event called 'chat' to server-side socket
         carrying the submitted chat message*/
-        /*todo: username should be stored server-side and accessed through session token, so that
-        username can't be forged with client-side modification of this socket.emit() call*/
-        socket.emit('chat',usernameInput.value+": "+chatInput.value);
+        socket.emit('chat',chatInput.value);
         //reset chat input field to blank once the message has been sent
         chatInput.value = '';
     }
