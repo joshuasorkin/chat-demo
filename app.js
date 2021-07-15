@@ -73,9 +73,9 @@ io.on('connection',socket=>{
             return
           }
         var dataArray=data.split("\n");
-        console.log(`data from log.txt:`);
-        console.log(dataArray);
-          //io.to(socket.id).emit(data)
+        //console.log(`data from log.txt:`);
+        //console.log(dataArray);
+        io.to(socket.id).emit('previous_messages',dataArray);
     });
 
 

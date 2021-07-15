@@ -82,3 +82,9 @@ socket.on('username_update',(message,username)=>{
         socket.username=username;
     }
 })
+
+socket.on('previous_messages',(dataArray){
+    dataArray.forEach(data=>{
+        renderMessage(data);
+    });
+});
