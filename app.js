@@ -13,12 +13,14 @@ const io = require('socket.io')(server,{
 const path = require('path');
 //const cors = require('cors');
 const NameChecker = require('./NameChecker');
+const MentionChecker = require('./MentionChecker');
 
-var logDate = new Date();
-//const logger = fs.createWriteStream('log.txt');
 
 //initialize name checker
 const nameChecker=new NameChecker();
+
+//init mention checker
+const mentionChecker=new MentionChecker();
 
 //set index page to static HTML file, using index.html
 app.use(express.static(path.join(__dirname + '/public')))
@@ -81,6 +83,8 @@ io.on('connection',socket=>{
 
     //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
+
+        message=MentionChecker.formatMentions(message);
         var broadcastMessage;
         broadcastMessage=`${socket.username}: ${message}`;
         io.emit('chat',broadcastMessage);
