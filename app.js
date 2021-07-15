@@ -72,10 +72,10 @@ io.on('connection',socket=>{
         var broadcastMessage;
         broadcastMessage=`${socket.username}: ${message}`;
         io.emit('chat',broadcastMessage);
-        fs.appendFile("log.txt",broadcastMessage,function(err) {     
+        fs.appendFile("log.txt",`${broadcastMessage}\n`,function(err) {     
             if (err) throw err;
             // if no error
-            console.log("Data is appended to file successfully.");
+            //console.log("Data is appended to file successfully.");
         });
     });
     //response to username update submission
