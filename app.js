@@ -14,13 +14,21 @@ const path = require('path');
 //const cors = require('cors');
 const NameChecker = require('./NameChecker');
 
+var logDate = new Date();
+const logger = fs.createWriteStream('log.txt');
+logger.write('test data');
+logger.end();
+
 //initialize name checker
 const nameChecker=new NameChecker();
 
 //set index page to static HTML file, using index.html
 app.use(express.static(path.join(__dirname + '/public')))
 
+//***begin REST API section
 
+/*NOTE: REST API is not used in current version of app
+(as of commit 419d19624db7178713d1885b24b405fe90ba0f25)*/
 /*RouterLoader.loadRoutes() was failing to load testAPI when
 called from module, so added the loadRoute code here
 until that is fixed and we can refactor the function
@@ -55,6 +63,8 @@ filenames.forEach(filename=>{
     }
 })
 //***end loadRoutes()
+
+//***end REST API section
 
 
 io.on('connection',socket=>{
