@@ -15,7 +15,7 @@ const path = require('path');
 const NameChecker = require('./NameChecker');
 
 var logDate = new Date();
-const logger = fs.createWriteStream('log.txt');
+//const logger = fs.createWriteStream('log.txt');
 
 //initialize name checker
 const nameChecker=new NameChecker();
@@ -66,12 +66,17 @@ filenames.forEach(filename=>{
 
 
 io.on('connection',socket=>{
-    var msgOut;
+    
     //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
-        broadcastMessage=`${socket.username}: ${message}`
+        var broadcastMessage;
+        broadcastMessage=`${socket.username}: ${message}`;
         io.emit('chat',broadcastMessage);
-        logger.write(broadcastMessage);
+        fs.appendFile("log.txt",broadcastMessage,function(err) {     
+            if (err) throw err;
+            // if no error
+            console.log("Data is appended to file successfully.");
+        });
     });
     //response to username update submission
     //todo: refactor these socket.on() event handlers into their own functions
