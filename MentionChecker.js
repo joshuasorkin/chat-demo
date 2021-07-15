@@ -13,6 +13,7 @@ class MentionChecker{
             else{
                 return match;
             }
+        });
     }
 
 }
