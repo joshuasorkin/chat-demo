@@ -85,6 +85,7 @@ io.on('connection',socket=>{
     });
     socket.on('disconnect',()=>{
         if(nameChecker.getNameFromID(socket.id)!==null){
+            io.emit('chat',`${socket.username} has disconnected.`);
             nameChecker.removeID(socket.id);
         }
     })
