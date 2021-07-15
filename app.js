@@ -20,7 +20,7 @@ const MentionChecker = require('./MentionChecker');
 const nameChecker=new NameChecker();
 
 //init mention checker
-const mentionChecker=new MentionChecker();
+const mentionChecker=new MentionChecker(NameChecker);
 
 //set index page to static HTML file, using index.html
 app.use(express.static(path.join(__dirname + '/public')))
