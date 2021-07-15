@@ -7,6 +7,7 @@ const chatInput = document.querySelector('.chat-input');
 const chatWindow = document.querySelector('.chat-window');
 const username = document.querySelector('.username-form');
 const usernameInput = document.querySelector('.username-input');
+const usernameSubmitted = document.querySelector('.username-submitted');
 
 const renderMessage = message => {
     const div = document.createElement('div')
