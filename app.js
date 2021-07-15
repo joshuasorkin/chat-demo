@@ -72,7 +72,8 @@ io.on('connection',socket=>{
             console.error(err)
             return
           }
-        console.log(`data from log.txt: ${data}`);
+        var dataArray=data.split("\n");
+        console.log(`data from log.txt: ${dataArray}`);
           //io.to(socket.id).emit(data)
     });
 
