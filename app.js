@@ -60,7 +60,7 @@ filenames.forEach(filename=>{
 io.on('connection',socket=>{
     //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
-        io.emit('chat',message);
+        io.emit('chat',`${socket.username}: ${message}`);
     });
     //response to username update submission
     //todo: refactor these socket.on() event handlers into their own functions
