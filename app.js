@@ -67,6 +67,16 @@ filenames.forEach(filename=>{
 
 io.on('connection',socket=>{
     
+    fs.readFile("log.txt","utf8",(err,data)=>{
+        if (err) {
+            console.error(err)
+            return
+          }
+        console.log(`data from log.txt: ${data}`);
+          //io.to(socket.id).emit(data)
+    });
+
+
     //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
         var broadcastMessage;
