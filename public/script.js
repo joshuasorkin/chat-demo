@@ -47,8 +47,8 @@ username.addEventListener('submit',event =>{
     event.preventDefault();
     var usernameToSubmit=usernameInput.value;
     //check if username is blank
-    if (usernameToSubmit===undefined||usernameToSubmit.trim().length===0){
-        usernameResponse.innerHTML="<strong>Submitted username cannot be blank.</strong>"
+    if (usernameToSubmit===undefined||usernameToSubmit.trim().length===0||usernameToSubmit.includes(" ")){
+        usernameResponse.innerHTML="<strong>Submitted username cannot be blank or contain a space.</strong>"
         setTimeout(function(){
             usernameResponse.innerHTML=""
         },2000)
