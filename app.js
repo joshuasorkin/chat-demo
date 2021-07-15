@@ -73,7 +73,8 @@ io.on('connection',socket=>{
             return
           }
         var dataArray=data.split("\n");
-        console.log(`data from log.txt: ${dataArray}`);
+        console.log(`data from log.txt:`);
+        console.log(dataArray);
           //io.to(socket.id).emit(data)
     });
 
