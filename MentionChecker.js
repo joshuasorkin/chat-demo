@@ -6,8 +6,9 @@ class MentionChecker{
     }
 
     formatMentions(message){
+        var localNameChecker=this.nameChecker;
         return message.replace(/@[A-Za-z0-9]+/g,function(match){
-            if(this.nameChecker.getIDFromName(match)!==null){
+            if(localNameChecker.getIDFromName(match)!==null){
                 return "<strong>"+match+"</strong>";
             }
             else{
