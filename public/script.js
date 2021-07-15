@@ -5,6 +5,7 @@ const socket = io();
 const chat = document.querySelector('.chat-form');
 const chatInput = document.querySelector('.chat-input');
 const chatWindow = document.querySelector('.chat-window');
+const chatError = document.querySelector('.chat-error');
 const username = document.querySelector('.username-form');
 const usernameInput = document.querySelector('.username-input');
 const usernameSubmitted = document.querySelector('.username-submitted');
@@ -22,7 +23,10 @@ chat.addEventListener('submit',event =>{
     event.preventDefault();
 
     if(usernameSubmitted.value===undefined){
-        document.querySelector('.chat-error').innerText="Cannot send message with blank username."
+        chatError.innerText="Cannot send message with blank username."
+        setTimeout(function(){
+            chatError.innerText=""
+        },2000)
     }
     else{
         /*send an event called 'chat' to server-side socket
@@ -44,9 +48,14 @@ username.addEventListener('submit',event =>{
     var usernameToSubmit=usernameInput.value;
     //check if username is blank
     if (usernameToSubmit===undefined||usernameToSubmit.trim().length===0){
-        document.querySelector('.chat-error').innerText="Submitted username cannot be blank."
+        usernameResponse.innerText="Submitted username cannot be blank."
+        setTimeout(function(){
+            usernameResponse.innerText=""
+        },2000)
     }
     else{
+        console.log(`sending ${usernameInput.value} to server`)
+
         /*send an event called 'submitUsername' to server-side socket
         carrying the submitted username for proposed change*/
         socket.emit('submitUsername',usernameInput.value);
@@ -63,9 +72,15 @@ socket.on('chat',message=>{
 })
 
 //add event listener for receiving 'username_update' message from server
-socket.on('username_update',message=>{
+socket.on('username_update',(message,username)=>{
+    console.log(`username_update received from server: ${message}`)
     usernameResponse.innerText=message;
-    if(socket.hasOwnProperty("username")){
-        usernameSubmitted.innerText=socket.username;
+    setTimeout(function(){
+        usernameResponse.innerText=""
+    },2000)
+    if (username!==null){
+        usernameSubmitted.innerText=username;
+        socket.username=username;
+    }
     }
 })

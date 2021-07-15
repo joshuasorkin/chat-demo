@@ -68,13 +68,17 @@ io.on('connection',socket=>{
         io.emit('chat',message);
     });
     socket.on('submitUsername',(username)=>{
+        console.log(`username received: ${username}`);
         if(nameChecker.getIDFromName(username)===null){
+            console.log(`${username} is able to be used, updating nameChecker`);
             nameChecker.addIDAndName(socket.id);
-            socket.to(socket.id).emit('username_response',`Username successfully changed to ${username}.`);
             socket.username=username;
+            console.log(`emitting username_update to ${socket.id}`);
+            io.to(socket.id).emit('username_update',`Username successfully changed to ${username}.`,username);
         }
         else{
-            socket.to(socket.id).emit('username_response',`${username} is already in use.`);
+            console.log(`${username} is already in use`);
+            io.to(socket.id).emit('username_update',`${username} is already in use.`,null);
         }
     });
     socket.on('disconnect',()=>{
