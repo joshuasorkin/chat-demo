@@ -16,8 +16,6 @@ const NameChecker = require('./NameChecker');
 
 var logDate = new Date();
 const logger = fs.createWriteStream('log.txt');
-logger.write('test data');
-logger.end();
 
 //initialize name checker
 const nameChecker=new NameChecker();
@@ -68,9 +66,12 @@ filenames.forEach(filename=>{
 
 
 io.on('connection',socket=>{
+    var msgOut;
     //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
-        io.emit('chat',`${socket.username}: ${message}`);
+        broadcastMessage=`${socket.username}: ${message}`
+        io.emit('chat',broadcastMessage);
+        logger.write(broadcastMessage);
     });
     //response to username update submission
     //todo: refactor these socket.on() event handlers into their own functions
