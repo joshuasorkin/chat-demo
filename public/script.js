@@ -16,6 +16,7 @@ const renderMessage = message => {
     div.classList.add('render-message');
     div.innerText = message;
     chatWindow.appendChild(div);
+    div.scrollIntoView();
 }
 //add event listener to chat submit button
 chat.addEventListener('submit',event =>{
@@ -23,9 +24,10 @@ chat.addEventListener('submit',event =>{
     event.preventDefault();
 
     if(usernameSubmitted.value===undefined){
-        chatError.innerText="Cannot send message with blank username."
+        //chatError.innerText="Cannot send message with blank username."
+        chatError.innerHTML=("<strong>Cannot send message with blank username.</strong>");
         setTimeout(function(){
-            chatError.innerText=""
+            chatError.innerHTML=""
         },2000)
     }
     else{
@@ -48,13 +50,12 @@ username.addEventListener('submit',event =>{
     var usernameToSubmit=usernameInput.value;
     //check if username is blank
     if (usernameToSubmit===undefined||usernameToSubmit.trim().length===0){
-        usernameResponse.innerText="Submitted username cannot be blank."
+        usernameResponse.innerHTML="<strong>Submitted username cannot be blank.</strong>"
         setTimeout(function(){
-            usernameResponse.innerText=""
+            usernameResponse.innerHTML=""
         },2000)
     }
     else{
-        console.log(`sending ${usernameInput.value} to server`)
 
         /*send an event called 'submitUsername' to server-side socket
         carrying the submitted username for proposed change*/
@@ -73,14 +74,13 @@ socket.on('chat',message=>{
 
 //add event listener for receiving 'username_update' message from server
 socket.on('username_update',(message,username)=>{
-    console.log(`username_update received from server: ${message}`)
-    usernameResponse.innerText=message;
+    usernameResponse.innerHTML=`<strong>${message}</strong>`;
     setTimeout(function(){
-        usernameResponse.innerText=""
+        usernameResponse.innerText=" "
     },2000)
     if (username!==null){
         usernameSubmitted.innerText=username;
+        usernameSubmitted.value=username;
         socket.username=username;
-    }
     }
 })

@@ -3,34 +3,6 @@
     <head>
         <title>Chatabolic</title>
         <link rel="stylesheet" href="styles/styles.css">
-        <!--
-        <style>
-            #container {
-              width: 700px;
-              margin: 0 auto;
-            }
-            .chat-input {
-              width: 300px;
-              height: 35px;
-              border: solid 1px #444;
-            }
-            .chat-submit {
-              width: 50px;
-              height: 35px;
-              border: solid 1px #444;
-            }
-            .chat-window {
-              height: 300px;
-              width: 400px;
-            }
-            #chatRegion {
-              float: left;
-              border: 1px grey solid;
-              border-radius: 10px;
-              padding: 10px;
-            }
-          </style>
-        -->
     </head>
     <body>
         <div id="container">
@@ -41,7 +13,7 @@
                 <div class="chat-window"></div>
                 <form class="chat-form">
                     <label class="chat-label">
-                        Speak your mind:
+                        Message to send:
                         <input type="text" class="chat-input" />
                     </label>
                     <input type="submit" class="chat-submit" value="Send" />
@@ -51,9 +23,11 @@
                 </form>
                     
                 <form class="username-form">
+                  <label class="current-username">Current username: </label>
+                  <label class="username-submitted" value=" "></label>
+                  <p></p>
                   <label class="username-label">
-                      Username:
-                      <label class="username-submitted" value=" " />
+                      Update username:
                       <input type="text" class="username-input" />
                   </label>
                   <input type="submit" class="username-submit" value="Update username" />
@@ -65,27 +39,6 @@
 
         <script src="socket.io/socket.io.js"></script>
         <script src="script.js"></script>
-
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
-
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-        <script>
-          // Your web app's Firebase configuration
-          var firebaseConfig = {
-            apiKey: "AIzaSyBDCZ7lehJGVY4tAWyPzAXkEiekx9QJkUY",
-            authDomain: "chatabolic.firebaseapp.com",
-            projectId: "chatabolic",
-            storageBucket: "chatabolic.appspot.com",
-            messagingSenderId: "307425308969",
-            appId: "1:307425308969:web:c46450f53bc49e8e8d8738"
-          };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-        </script>
 
     </body>
 </html>

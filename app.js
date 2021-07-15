@@ -11,16 +11,11 @@ const io = require('socket.io')(server,{
     }
 });
 const path = require('path');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+//const cors = require('cors');
 const NameChecker = require('./NameChecker');
 
 //initialize name checker
 const nameChecker=new NameChecker();
-
-//initialize view engine
-app.set('view engine', 'pug')
 
 //set index page to static HTML file, using index.html
 app.use(express.static(path.join(__dirname + '/public')))
@@ -67,18 +62,25 @@ io.on('connection',socket=>{
     socket.on('chat',message =>{
         io.emit('chat',message);
     });
+    //response to username update submission
+    //todo: refactor these socket.on() event handlers into their own functions
     socket.on('submitUsername',(username)=>{
-        console.log(`username received: ${username}`);
+        //check if username is already in use
         if(nameChecker.getIDFromName(username)===null){
-            console.log(`${username} is able to be used, updating nameChecker`);
-            nameChecker.addIDAndName(socket.id);
+            nameChecker.addIDAndName(socket.id,username);
+            if (socket.hasOwnProperty("username")){
+                io.emit('chat',`${socket.username} has changed their name to "${username}".`);
+            }
+            else{
+                io.emit('chat',`${username} is ready to chat.`)
+            }
+
             socket.username=username;
-            console.log(`emitting username_update to ${socket.id}`);
             io.to(socket.id).emit('username_update',`Username successfully changed to ${username}.`,username);
         }
         else{
             console.log(`${username} is already in use`);
-            io.to(socket.id).emit('username_update',`${username} is already in use.`,null);
+            io.to(socket.id).emit('username_update',`"${username}" is already in use.`,null);
         }
     });
     socket.on('disconnect',()=>{
