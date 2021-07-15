@@ -12,6 +12,19 @@ const io = require('socket.io')(server,{
 });
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const NameChecker = require('./NameChecker');
+
+//initialize name checker
+const nameChecker=new NameChecker();
+
+//initialize view engine
+app.set('view engine', 'pug')
+
+//set index page to static HTML file, using index.html
+app.use(express.static(path.join(__dirname + '/public')))
+
 
 /*RouterLoader.loadRoutes() was failing to load testAPI when
 called from module, so added the loadRoute code here
@@ -21,14 +34,7 @@ back to the module*/
 //const routerLoader = new RouterLoader(app);
 //routerLoader.loadRoutes();
 
-//initialize view engine
-app.set('view engine', 'pug')
-
-//set index page to static HTML file, using index.html
-app.use(express.static(path.join(__dirname + '/public')))
-
-
-//***begin router initializer for REST API
+//***begin loadRoutes() for REST API
 var route_directory = "routes";
 //get list of filenames in /routes
 var filenames = fs.readdirSync(route_directory);
@@ -53,16 +59,30 @@ filenames.forEach(filename=>{
         //eval("app.use('/',"+router+"Router);");
     }
 })
-//***end router initializer
+//***end loadRoutes()
 
 
 io.on('connection',socket=>{
     //get 'chat' event from client and broadcast the message
     socket.on('chat',message =>{
         io.emit('chat',message);
+    });
+    socket.on('submitUsername',(username)=>{
+        if(nameChecker.getIDFromName(username)===null){
+            nameChecker.addIDAndName(socket.id);
+            socket.to(socket.id).emit('username_response',`Username successfully changed to ${username}.`);
+            socket.username=username;
+        }
+        else{
+            socket.to(socket.id).emit('username_response',`${username} is already in use.`);
+        }
+    });
+    socket.on('disconnect',()=>{
+        if(nameChecker.getNameFromID(socket.id)!==null){
+            nameChecker.removeID(socket.id);
+        }
     })
 })
-
 
 server.listen(port, () => {
     console.log(`Server running on port: ${port}`);
