@@ -8,3 +8,8 @@ xay: now
 xaq: more data down here
 test: there is @test
 abc: yes <strong>@abc</strong>
+newInput: i am <strong>@newInput</strong>
+fsol: this is <strong>@fsol</strong>
+fsol: where is @nobody
+fsol: hello 
+fsol: hello <strong>@newInput</strong>

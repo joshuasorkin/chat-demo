@@ -8,7 +8,7 @@ const chatWindow = document.querySelector('.chat-window');
 const chatError = document.querySelector('.chat-error');
 const username = document.querySelector('.username-form');
 const usernameInput = document.querySelector('.username-input');
-const usernameSubmitted = document.querySelector('.username-submitted');
+const usernameDisplay = document.querySelector('.username-display');
 const usernameResponse = document.querySelector('.username-response');
 
 const renderMessage = message => {
@@ -23,7 +23,7 @@ chat.addEventListener('submit',event =>{
     //prevent page from reloading on form submission
     event.preventDefault();
 
-    if(usernameSubmitted.value===undefined){
+    if(usernameDisplay.value===undefined){
         //chatError.innerText="Cannot send message with blank username."
         chatError.innerHTML=("<strong>Cannot send message with blank username.</strong>");
         setTimeout(function(){
@@ -77,8 +77,8 @@ socket.on('username_update',(message,username)=>{
         usernameResponse.innerText=" "
     },2000)
     if (username!==null){
-        usernameSubmitted.innerText=username;
-        usernameSubmitted.value=username;
+        usernameDisplay.innerText=username;
+        usernameDisplay.value=username;
         socket.username=username;
     }
 })
