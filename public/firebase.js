@@ -6,10 +6,10 @@ function login() {
     });
   }
 
-  firebase.auth().onAuthStateChanged(function(user) {
-    // Once authenticated, instantiate Firechat with the logged in user
-    if (user) {
-      //initChat(user);
-      console.log(user.uid);
-    }
-  });
+firebase.auth().onAuthStateChanged(function(user) {
+// Once authenticated, instantiate Firechat with the logged in user
+if (user) {
+    //initChat(user);
+    console.log(user.uid);
+}
+});
