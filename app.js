@@ -14,7 +14,7 @@ const path = require('path');
 //const cors = require('cors');
 const NameChecker = require('./NameChecker');
 const MentionChecker = require('./MentionChecker');
-
+const User = require('./User');
 
 //initialize name checker
 const nameChecker=new NameChecker();
