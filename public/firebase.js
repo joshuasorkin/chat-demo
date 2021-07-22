@@ -1,13 +1,20 @@
 function login() {
     // Log the user in via Twitter
-    var provider = new firebase.auth.TwitterAuthProvider();
-    firebase.auth().signInWithPopup(provider).catch(function(error) {
+    //var provider = new firebase.auth.TwitterAuthProvider();
+    firebase.auth().signInWithEmailAndPassword(provider).catch(function(error) {
       console.log("Error authenticating user:", error);
     });
   }
 
-firebase.auth().onAuthStateChanged(function(user) {
-// Once authenticated, instantiate Firechat with the logged in user
+//can also create user with
+//firebase.auth().createUserWithEmailAndPassword(email,pass)
+
+
+//this sets an event handler that activates whenever the user's 
+//authentication state changes, verified->non-verified or vice versa
+firebase.auth().onAuthStateChanged(user => {
+
+//if user is non-verified, then user===null
 if (user) {
     //initChat(user);
     console.log(user.uid);
