@@ -30,3 +30,7 @@
   height: 35px;
   border: solid 1px #444;
 }
+
+.hide{
+  display: none;
+}
