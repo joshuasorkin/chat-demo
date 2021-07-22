@@ -22,4 +22,27 @@ btnLogin.addEventListener('click',e=>{
     auth.signInWithEmailAndPassword(email,pass)
     .catch(e=>console.log(e.message));
 
-})
+});
+
+btnSignup.addEventListener('click',e=>{
+    const email = txtEmail.value
+    const pass = txtPassword.value;
+    const auth = firebase.auth();
+    auth.createUserWithEmailAndPassword(email,pass)
+    .catch(e=>console.log(e.message));
+});
+
+firebase.auth().onAuthStateChanged(firebaseUser=>{
+    if(firebaseUser){
+        console.log(firebaseUser);
+        btnLogout.classList.remove('hide');
+    }
+    else{
+        console.log('not logged in');
+        btnLogout.classList.add('hide');
+    }
+});
+
+btnLogout.addEventListener('click',e=>{
+    firebase.auth().signOut();
+});
