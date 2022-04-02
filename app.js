@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const dotenv = require('dotenv');
 const app = express();
 const server = require('http').createServer(app);
 const port = process.env.PORT || 3000
@@ -11,10 +12,14 @@ const io = require('socket.io')(server,{
     }
 });
 const path = require('path');
-//const cors = require('cors');
 const NameChecker = require('./NameChecker');
 const MentionChecker = require('./MentionChecker');
 const User = require('./User');
+
+const dotenvResult=dotenv.config();
+if(dotenvResult.error){
+    console.log(error);
+}
 
 //initialize name checker
 const nameChecker=new NameChecker();
